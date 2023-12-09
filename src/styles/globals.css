@@ -1,0 +1,26 @@
+:root {
+    --text: #071715;
+    --background: #f1faf9;
+    --sec-background: #d9f3ef;
+    --primary: #43c3b2;
+    --secondary: #96c0dd;
+    --accent: #c4d666;
+
+    --space: 75px;
+}
+
+*{
+    box-sizing: border-box;
+    color: inherit;
+    font-size: inherit;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    text-decoration: none;
+}
+
+body{
+    color: var(--text);
+    background-color: var(--background);
+}
