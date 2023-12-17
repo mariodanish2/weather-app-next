@@ -549,8 +549,10 @@ The purpose of this project is to create a Weather App that provides users with 
 }
 ```
 
-## TODOS for 10-December:
-- [ ] Design the basic box according to the color-codes & main-code.
-- [ ] Render the Current Weather Info
-- [ ] Fetch & Render the 5-day Weather Forecast. Make it collapsable.
-- [ ] Make everything responsive
+## TODOS:
+- [x] Fetch & Render the Current Weather Info.
+- [x] Fetch & Render the 5-day Weather Forecast.
+- [ ] Build search functionality.
+- [ ] Work on Cache.
+- [ ] Make everything responsive.
+- [ ] Work on accessibility.

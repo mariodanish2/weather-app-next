@@ -5,6 +5,7 @@ import codeToWeatherIcon from '@/helpers/codeToWeatherIcon';
 import { WiSunrise, WiSunset } from "react-icons/wi";
 import get5DayForecast from '@/helpers/get5DayForecast';
 import InfoRow from '@/components/InfoRow';
+import ForeacstBox from '@/components/ForecastBox';
 
 
 
@@ -58,7 +59,12 @@ export default async function Home() {
       </div>
 
       {/* Forecast Info Section */}
-      
+      <h1 className={styles.forecast_title}>5-Day Forecasts</h1>
+      <div className={styles.forecastBoxes}>
+        {
+          forecastData?.list.map(forecast=><ForeacstBox key={forecast.dt} data={forecast} timezone={forecastData.city.timezone} />)
+        }
+      </div>
     </div>
   )
 }
