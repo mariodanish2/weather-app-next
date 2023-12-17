@@ -6,7 +6,7 @@ export default function Header(){
         <div className={styles.header}>
             <div className={styles.logo}>Weather Cast</div>
             <form className={styles.searchBar}>
-                <input type="text" placeholder='Search Here..' className={styles.searchInp} />
+                <input type="text" placeholder='Search your city here' className={styles.searchInp} />
                 <button type="submit" className={styles.searchBTN}><FaSearchLocation /></button>
             </form>
         </div>

@@ -6,7 +6,7 @@ const nglCOORD = {
 }
 
 export default async function getCurrentWeather(){
-    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${nglCOORD.lat}&lon=${nglCOORD.lon}&appid=${process.env.API_KEY}`, {next: {revalidate: 3600}});
+    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${nglCOORD.lat}&lon=${nglCOORD.lon}&appid=${process.env.API_KEY}`, {next: {revalidate: 60}});
 
     if (!res.ok){
         throw new Error("Failed Data");

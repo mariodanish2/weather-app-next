@@ -1,55 +1,64 @@
 import styles from '@/styles/page.module.scss';
 import getCurrentWeather from '@/helpers/getCurrentWeather';
-import {MdSunny} from 'react-icons/md';
-import { BsFillMoonStarsFill, BsCloudsFill } from "react-icons/bs";
-import { IoPartlySunnySharp } from "react-icons/io5";
-import { FaCloudMoon, FaCloud, FaCloudShowersHeavy, FaCloudSunRain, FaCloudMoonRain, FaRegSnowflake } from "react-icons/fa";
-import {FaCloudBolt} from 'react-icons/fa6';
-import { RiMistFill } from "react-icons/ri";
+import { mpsTOKmph, degreeToCompass, kelvinToCelsius, meterToKM, timestampToReadableDateTime, capitalizeSentence } from '@/helpers/converters';
+import codeToWeatherIcon from '@/helpers/codeToWeatherIcon';
+import { WiSunrise, WiSunset } from "react-icons/wi";
+import get5DayForecast from '@/helpers/get5DayForecast';
+import InfoRow from '@/components/InfoRow';
 
 
-
-
-const weatherIcons = {
-  "01d": <MdSunny />,
-  "01n": <BsFillMoonStarsFill />,
-  "02d": <IoPartlySunnySharp />,
-  "02n": <FaCloudMoon />,
-  "03d": <FaCloud />,
-  "03n": <FaCloud />,
-  "04d": <BsCloudsFill />,
-  "04n": <BsCloudsFill />,
-  "09d": <FaCloudShowersHeavy/>,
-  "09n": <FaCloudShowersHeavy/>,
-  "10d": <FaCloudSunRain/>,
-  "10n": <FaCloudMoonRain />,
-  "11d": <FaCloudBolt />,
-  "11n": <FaCloudBolt/>,
-  "13d": <FaRegSnowflake/>,
-  "13n": <FaRegSnowflake />,
-  "50d": <RiMistFill />,
-  "50n": <RiMistFill />
-
-}
 
 export default async function Home() {
-  const data = await getCurrentWeather();
-  console.log(data);
-  
+  const currentData = await getCurrentWeather();
+  const forecastData = await get5DayForecast();
+  // console.log(currentData);
+  // console.log(JSON.stringify(forecastData));
+
   return (
-    <div>
-      {/* Basic Info-Box */}
-      <div>
-        <div>
-          {weatherIcons[data.weather[0].icon.split(".")[0]]}
-          <div>{data.weather[0].description}</div>
+    <div className={styles.homePage}>
+      {/* Current Weather Info Box */}
+      <div className={styles.currentInfo}>
+        <div className={styles.header}>
+          <div className={styles.header_left}>
+            <div className={styles.title}>Current weather</div>
+            <div className={styles.calcTime}>Calculated At: {timestampToReadableDateTime(currentData.dt, currentData.timezone)}</div>
+          </div>
+          <div className={styles.header_right}>
+            <div className={styles.cityName}>{currentData.name}</div>
+            <div className={styles.coordinates}>Latitude: {currentData.coord.lat}, Longtitude: {currentData.coord.lon}</div>
+          </div>
         </div>
-        <div>
-          <div>{(data.main.temp - 273).toFixed(2)} &#8451;</div>
-          <div>{data.name}</div>
+
+        <div className={styles.basicInfo}>
+          <div className={styles.iconGRP}>
+            <div className={styles.icon}>{codeToWeatherIcon(currentData.weather[0].icon)}</div>
+            <div className={styles.iconText}>{capitalizeSentence(currentData.weather[0].description)}{currentData?.rain ? `, ${Object.values(currentData.rain)[0]} mm` : ""}</div>
+          </div>
+          <div className={styles.tempGRP}>
+            <div className={styles.temp}>{kelvinToCelsius(currentData.main.temp)} &#8451;</div>
+            <div className={styles.infos}>
+              <InfoRow label="Feels Like:" value={<>{kelvinToCelsius(currentData.main.feels_like)} &#8451;</>} stripped />
+              <InfoRow label="Visibility" value={`${meterToKM(currentData.visibility)} km`} stripped />
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.detailedInfos}>
+          <InfoRow label="Temperature:" value={<>{kelvinToCelsius(currentData.main.temp)} &#8451;</>} />
+          <InfoRow label="Feels Like:" value={<>{kelvinToCelsius(currentData.main.feels_like)} &#8451;</>} />
+          <InfoRow label="Min. Temperature:" value={<>{kelvinToCelsius(currentData.main.temp_min)} &#8451;</>} />
+          <InfoRow label="Max. Temperature:" value={<>{kelvinToCelsius(currentData.main.temp_max)} &#8451;</>} />
+          <InfoRow label="Wind Speed:" value={`${degreeToCompass(currentData.wind.deg)} ${mpsTOKmph(currentData.wind.speed)} km/hr`} />
+          <InfoRow label="Wind Gust:" value={`${mpsTOKmph(currentData.wind.gust)} km/hr`} />
+          <InfoRow label="Pressure:" value={`${currentData.main.pressure}hpa`} />
+          <InfoRow label="Humidity:" value={`${currentData.main.humidity}%`} />
+          <InfoRow label={<><WiSunrise /> Sunrise: </>} value={timestampToReadableDateTime(currentData.sys.sunrise, currentData.timezone, true)} />
+          <InfoRow label={<><WiSunset /> Sunset:</>} value={timestampToReadableDateTime(currentData.sys.sunset, currentData.timezone, true)} />
         </div>
       </div>
 
+      {/* Forecast Info Section */}
+      
     </div>
   )
 }
