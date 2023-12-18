@@ -2,6 +2,22 @@
     padding: 45px var(--space);
 }
 
+.revalidateBTN{
+    display: block;
+    width: fit-content;
+    height: fit-content;
+    background: none;
+    margin: 0 auto 15px;
+    font-size: 2rem;
+    line-height: 2.1rem;
+    cursor: pointer;
+    transition: 250ms ease-in-out;
+
+    &:hover{
+        transform: rotate(180deg);
+    }
+}
+
 .currentInfo {
     margin: 0 auto;
     max-width: 900px;
@@ -15,11 +31,15 @@
     -moz-box-shadow: 1px 3px 10px 1px rgba(34, 34, 34, 0.25);
     box-shadow: 1px 3px 10px 1px rgba(34, 34, 34, 0.25);
 
+    @media (max-width: 425px){
+        padding: 20px 17.5px;
+    }
+
     .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        column-gap: 60px;
+        column-gap: 35px;
         padding: 0 10px 15px;
         border-bottom: 1.5px solid var(--border);
 
@@ -49,13 +69,46 @@
                 font-size: 1.05rem;
             }
         }
+
+        @media (max-width: 630px){
+            flex-direction: column;
+            align-items: flex-start;
+            row-gap: 15px;
+
+            .header_right{
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 575px){
+            .header_left{
+                .title{
+                    font-size: 1.25rem;
+                }
+
+                .calcTime{
+                    font-size: 1rem;
+                }
+            }
+
+            .header_right{
+                .cityName{
+                    font-size: 1.15rem;
+                }
+
+                .coordinates{
+                    font-size: 1rem;
+                }
+            }
+        }
+
     }
 
     .basicInfo {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        column-gap: 60px;
+        column-gap: 35px;
         padding: 20px 10px;
         border-bottom: 1.5px solid var(--border);
 
@@ -64,7 +117,7 @@
             flex-direction: column;
             align-items: center;
             width: fit-content;
-            row-gap: 4px;
+            row-gap: 7.5px;
 
             .icon {
                 display: flex;
@@ -99,6 +152,24 @@
                 row-gap: 7.5px;
             }
         }
+
+        @media (max-width: 620px){
+            flex-direction: column;
+            align-items: center;
+            row-gap: 25px;
+
+            .tempGRP{
+                align-items: center;
+            }
+        }
+
+        @media (max-width:370px){
+            align-items: flex-start;
+
+            .tempGRP{
+                align-items: flex-start;
+            }
+        }
     }
 
     .detailedInfos {
@@ -106,14 +177,27 @@
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: auto;
         column-gap: 25px;
+
+
+        @media (max-width: 775px){
+            grid-template-columns: 1fr;
+        }
     }
 }
 
 .forecast_title{
     max-width: 900px;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     margin: 65px auto 0;
     border-bottom: 1.5px solid #aaa;
+
+    @media (max-width: 605px){
+        text-align: center;
+    }
+
+    @media (max-width: 475px){
+        font-size: 1.3rem;
+    }
 }
 
 .forecastBoxes{

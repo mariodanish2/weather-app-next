@@ -3,13 +3,17 @@ import getCurrentWeather from '@/helpers/getCurrentWeather';
 import { mpsTOKmph, degreeToCompass, kelvinToCelsius, meterToKM, timestampToReadableDateTime, capitalizeSentence } from '@/helpers/converters';
 import codeToWeatherIcon from '@/helpers/codeToWeatherIcon';
 import { WiSunrise, WiSunset } from "react-icons/wi";
+import { IoMdRefresh } from "react-icons/io";
 import get5DayForecast from '@/helpers/get5DayForecast';
 import InfoRow from '@/components/InfoRow';
 import ForeacstBox from '@/components/ForecastBox';
+import { Suspense } from 'react';
+import LoaderBox from '@/components/LoaderBox';
+import revalidateData from '@/helpers/revalidateData';
 
 
 
-export default async function Home({searchParams}) {
+export default async function Home({ searchParams }) {
 
   const lat = searchParams["lat"];
   const lon = searchParams["lon"];
@@ -17,10 +21,10 @@ export default async function Home({searchParams}) {
   const currentData = await getCurrentWeather(lat, lon);
   const forecastData = await get5DayForecast(lat, lon);
 
-  // console.log(currentData);
-
   return (
     <div className={styles.homePage}>
+      {/* refresh button */}
+      <form action={revalidateData}><button type="submit" className={styles.revalidateBTN}><IoMdRefresh /></button></form>
       {/* Current Weather Info Box */}
       <div className={styles.currentInfo}>
         <div className={styles.header}>
@@ -30,7 +34,7 @@ export default async function Home({searchParams}) {
           </div>
           <div className={styles.header_right}>
             <div className={styles.cityName}>{currentData.name}</div>
-            <div className={styles.coordinates}>Latitude: {currentData.coord.lat}, Longtitude: {currentData.coord.lon}</div>
+            <div className={styles.coordinates}>Lat: {currentData.coord.lat}, Lon: {currentData.coord.lon}</div>
           </div>
         </div>
 
@@ -66,9 +70,18 @@ export default async function Home({searchParams}) {
       <h1 className={styles.forecast_title}>5-Day Forecasts</h1>
       <div className={styles.forecastBoxes}>
         {
-          forecastData?.list.map(forecast=><ForeacstBox key={forecast.dt} data={forecast} timezone={forecastData.city.timezone} />)
+          forecastData?.list.map(forecast => (
+            <Suspense key={forecast.dt} fallback={<LoaderBox />}>
+              <ForeacstBox data={forecast} timezone={forecastData.city.timezone} />
+            </Suspense>
+          )
+          )
         }
       </div>
     </div>
   )
 }
+
+
+export const revalidate = 3600;
+export const dynamic = "force-dynamic";

@@ -8,6 +8,18 @@
     --border: #bbb;
 
     --space: 75px;
+
+    @media(max-width: 1000px){
+        --space: 50px;
+    }
+
+    @media (max-width: 670px){
+        --space: 25px;
+    }
+
+    @media (max-width: 425px){
+        --space: 17.5px;
+    }
 }
 
 *{
@@ -24,4 +36,25 @@
 body{
     color: var(--text);
     background-color: var(--background);
+}
+
+
+@keyframes loadingAnime{
+    0%{
+        opacity: 0.5;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0.5;
+    }
+}
+
+.loader-boxyz{
+    width: 265px;
+    height: 145px;
+    border-radius: 25px;
+    background-color: #d5d5d5;
+    animation: loadingAnime 2s ease-in-out infinite both;
 }

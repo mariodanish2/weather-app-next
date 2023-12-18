@@ -33,6 +33,23 @@
             background-color: #000;
         }
     }
+
+    @media (max-width: 575px){
+        &>.text{
+            display: none;
+        }
+
+        &>.icon{
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.1rem;
+            width: calc(10px + 1.15rem);
+            height: calc(10px + 1.15rem);
+            border-radius: 50%;
+        }
+    }
 }
 
 .searchPopup{
