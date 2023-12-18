@@ -1,14 +1,12 @@
 import { FaSearchLocation } from "react-icons/fa";
 import styles from '@/styles/header.module.scss';
+import Search from "./Search";
 
 export default function Header(){
     return (
         <div className={styles.header}>
             <div className={styles.logo}>Weather Cast</div>
-            <form className={styles.searchBar}>
-                <input type="text" placeholder='Search your city here' className={styles.searchInp} />
-                <button type="submit" className={styles.searchBTN}><FaSearchLocation /></button>
-            </form>
+            <Search />
         </div>
     )
 }

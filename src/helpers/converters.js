@@ -8,7 +8,11 @@ export function degreeToCompass(deg) {
 }
 
 export function mpsTOKmph(num) {
-    return (num * 3.6).toFixed(1);
+    if (typeof num !== "number"){
+        return "--";
+    }
+    const value = (num * 3.6).toFixed(1);
+    return value;
 }
 
 export function kelvinToCelsius(num) {

@@ -1,7 +1,7 @@
 "use client";
 
 import codeToWeatherIcon from "@/helpers/codeToWeatherIcon";
-import { degreeToCompass, kelvinToCelsius, meterToKM, mpsTOKmph, timestampToReadableDateTime } from "@/helpers/converters";
+import { capitalizeSentence, degreeToCompass, kelvinToCelsius, meterToKM, mpsTOKmph, timestampToReadableDateTime } from "@/helpers/converters";
 import InfoRow from "./InfoRow";
 import styles from '@/styles/forecastBox.module.scss';
 import { useState } from "react";
@@ -26,7 +26,7 @@ export default function ForeacstBox({ data, timezone }) {
                     <span>{codeToWeatherIcon(data.weather[0].icon)}</span>
                     <span>{kelvinToCelsius(data.main.temp)} &#8451;</span>
                 </div>
-                <div className={styles.bttm}>{data.weather[0].description}</div>
+                <div className={styles.bttm}>{capitalizeSentence(data.weather[0].description)}</div>
             </div>
             {/* Detailed Info Box */}
             <AnimatePresence>

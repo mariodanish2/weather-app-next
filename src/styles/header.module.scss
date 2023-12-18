@@ -18,45 +18,4 @@
         font-size: 1.35rem;
         font-weight: 500;
     }
-
-    &>.searchBar{
-        position: relative;
-        width: fit-content;
-
-        & > .searchInp{
-            font-size: 1.1rem;
-            line-height: 1.5rem;
-            width: 25ch;
-            border-radius: 20px;
-            padding: 7.5px 30px 7.5px 15px;
-            background-color: var(--background);
-        }
-
-        &>.searchBTN{
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            font-size: 1.075rem;
-            line-height: 1.1rem;
-            height: calc(1.125rem + 16px);
-            width: calc(1.125rem + 16px);
-            border-radius: 50%;
-            
-            background-color: var(--text);
-            color: var(--background);
-            cursor: pointer;
-
-            transition: 250ms ease-in-out;
-
-            &:hover{
-                background-color: var(--primary);
-            }
-        }
-    }
 }

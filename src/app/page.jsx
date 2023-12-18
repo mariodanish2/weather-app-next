@@ -9,11 +9,15 @@ import ForeacstBox from '@/components/ForecastBox';
 
 
 
-export default async function Home() {
-  const currentData = await getCurrentWeather();
-  const forecastData = await get5DayForecast();
+export default async function Home({searchParams}) {
+
+  const lat = searchParams["lat"];
+  const lon = searchParams["lon"];
+
+  const currentData = await getCurrentWeather(lat, lon);
+  const forecastData = await get5DayForecast(lat, lon);
+
   // console.log(currentData);
-  // console.log(JSON.stringify(forecastData));
 
   return (
     <div className={styles.homePage}>
